@@ -22,7 +22,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\MvvmApp.Core\MvvmApp.Core.csproj" />
+	  <ProjectReference Include="..\MvvmApp.Core\MvvmApp.Core.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
