@@ -8,5 +8,6 @@ public static class DependencyInjection
     {
         services.AddSingleton<IPageViewModelFactory, WelcomePageViewModelFactory>();
         services.AddSingleton<INavigateToNoNavPageCommand, NavigateToNoNavPageCommand>();
+        services.AddSingleton<INavigateToFormPageCommand, NavigateToFormPageCommand>();
     }
 }

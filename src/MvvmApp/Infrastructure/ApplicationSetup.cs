@@ -6,6 +6,7 @@ using MvvmApp.Core.Features.NoNavPage;
 using MvvmApp.Core.Features.SettingsPage;
 using MvvmApp.Core.Features.WelcomePage;
 using MvvmApp.Core.Infrastructure.Application;
+using MvvmApp.Features.NavPage;
 using System;
 
 namespace MvvmApp
@@ -23,7 +24,7 @@ namespace MvvmApp
 
             services.AddFeaturesFormPage();
             services.AddFeaturesMainWindow();
-            services.AddFeaturesNavPage<SelectionChangedCommand>();
+            services.AddFeaturesNavPage<NavigationViewSelectionChangedEventArgsToNavigationArgsMap>();
             services.AddFeaturesNoNavPage();
             services.AddFeaturesSettingsPage();
             services.AddFeaturesWelcomePage();

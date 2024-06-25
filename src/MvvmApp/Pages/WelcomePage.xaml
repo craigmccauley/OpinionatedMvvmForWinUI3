@@ -24,5 +24,12 @@
                 </Core:EventTriggerBehavior>
             </Interactivity:Interaction.Behaviors>
         </Button>
+        <Button Content="Go to Form page">
+            <Interactivity:Interaction.Behaviors>
+                <Core:EventTriggerBehavior EventName="Click">
+                    <Core:InvokeCommandAction Command="{Binding NavigateToFormPageCommand}" />
+                </Core:EventTriggerBehavior>
+            </Interactivity:Interaction.Behaviors>
+        </Button>
     </StackPanel>
 </Page>

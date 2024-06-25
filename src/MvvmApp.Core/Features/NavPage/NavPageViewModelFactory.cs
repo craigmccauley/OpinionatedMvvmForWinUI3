@@ -3,27 +3,26 @@ using MvvmApp.Core.Infrastructure.Common;
 
 namespace MvvmApp.Core.Features.NavPage;
 
-public class NavPageViewModelFactory(
-    ILoadedCommand loadedCommand,
-    ISelectionChangedCommand selectionChangedCommand,
-    IMenuItemIsSelectedChangedService menuItemIsSelectedChangedService) : PageViewModelFactoryBase<NavPageViewModel>
+public class NavPageViewModelFactory(ISelectionChangedCommand selectionChangedCommand) 
+    : PageViewModelFactoryBase<NavPageViewModel>
 {
     public override NavPageViewModel Invoke()
     {
         var vm = new NavPageViewModel
         {
             MenuItems = [],
-            LoadedCommand = loadedCommand,
-            SelectionChangedCommand = selectionChangedCommand,
+            SelectionChangedCommand = selectionChangedCommand
         };
-        vm.MenuItems.Add(new()
+
+        var firstMenuItem = new MenuItem
         {
             Content = "Home",
             Glyph = "Home",
             NavDestination = Pages.WelcomePage,
-            IsSelected = true,
             Parent = vm,
-        });
+        };
+
+        vm.MenuItems.Add(firstMenuItem);
 
         vm.MenuItems.Add(new()
         {
@@ -33,10 +32,7 @@ public class NavPageViewModelFactory(
             Parent = vm,
         });
 
-        foreach (var item in vm.MenuItems)
-        {
-            item.PropertyChanged += menuItemIsSelectedChangedService.HandleIsSelectedChanged;
-        }
+        vm.SelectedMenuItem = firstMenuItem;
 
         return vm;
     }
