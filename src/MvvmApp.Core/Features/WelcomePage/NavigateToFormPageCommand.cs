@@ -2,21 +2,25 @@
 using MvvmApp.Core.Infrastructure.Application;
 using MvvmApp.Core.Infrastructure.Common;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace MvvmApp.Core.Features.WelcomePage;
 public interface INavigateToFormPageCommand : ICommand { }
 public class NavigateToFormPageCommand(
-    IHooks hooks) : CommandBase, INavigateToFormPageCommand
+    IHooks hooks) : CommandAsyncBase, INavigateToFormPageCommand
 {
-    protected override void ExecuteCommand(object parameter)
+    protected override async Task ExecuteAsync(object parameter)
     {
-        var navViewModel = hooks.GetPageViewModel(Pages.NavPage) as NavPageViewModel;
-        var menuItemToSelect = navViewModel.MenuItems.FirstOrDefault(mi => mi.NavDestination == Pages.FormPage);
+        var navPageViewModel = hooks.GetPageViewModel(Pages.NavPage) as NavPageViewModel;
+        var menuItemToSelect = navPageViewModel.MenuItems.FirstOrDefault(mi => mi.NavDestination == Pages.FormPage);
         if (menuItemToSelect == null)
         {
             return;
         }
-        hooks.RunAsync(() => navViewModel.SelectedMenuItem = menuItemToSelect);
+        await hooks.RunOnUIThreadAsync(() => 
+        { 
+            navPageViewModel.SelectedMenuItem = menuItemToSelect; 
+        });
     }
 }

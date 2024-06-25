@@ -33,7 +33,7 @@ internal class ApplicationService
 
         var hooks = serviceProvider.GetService<IHooks>();
 
-        await hooks.RunAsync(() =>
+        await hooks.RunOnUIThreadAsync(() =>
         {
             var vm = hooks.GetPageViewModel(Core.Infrastructure.Application.Pages.MainWindow);
             if (vm is MainWindowViewModel mainWindowViewModel)

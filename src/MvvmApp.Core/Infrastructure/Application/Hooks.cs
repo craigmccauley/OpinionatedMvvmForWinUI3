@@ -9,7 +9,7 @@ namespace MvvmApp.Core.Infrastructure.Application
         void ActivateMainWindow();
         IPageViewModel GetPageViewModel(Page page);
         void Initialize(IMainWindow mainWindow, IPageViewModelService pageViewModelService);
-        Task RunAsync(Action action);
+        Task RunOnUIThreadAsync(Action action);
     }
     public class Hooks : IHooks
     {
@@ -23,7 +23,7 @@ namespace MvvmApp.Core.Infrastructure.Application
             this.pageViewModelService ??= pageViewModelService;
             isInitialized = true;
         }
-        public async Task RunAsync(Action action)
+        public async Task RunOnUIThreadAsync(Action action)
         {
             if (!isInitialized) throw new Exception("Dispatcher not initialized");
             await mainWindow.DispatcherQueueEnqueueAsync(action);
